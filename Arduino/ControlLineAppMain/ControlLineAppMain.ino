@@ -42,6 +42,7 @@ void setup()
   cycleTimePinState = LOW;
   pinMode(cycleTimePin, OUTPUT);        
   digitalWrite(cycleTimePin,cycleTimePinState);
+  AnalogReference(DEFAULT);
 #endif  
 }
 
