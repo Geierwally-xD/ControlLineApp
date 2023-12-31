@@ -10,6 +10,7 @@
 #include "ButtonControl.h"
 #include "LedControl.h"
 #include "FlightTimer.h"
+#include "GyroAccelSens.h"
 //#define MEASURE_CYCLE_TIME
 
 LedControl    statusLed_(3);                             /* status LED object for switching output LED */
@@ -17,6 +18,7 @@ ServoControl  throttleServo_(A0,9,2, &statusLed_);       /* servo object analog 
 ButtonControl userButton_(2, &statusLed_);               /* button object for input button connected at pin 2*/
 FlightTimer   userFlightTimer(&statusLed_);              /* flight timer object for countdown flight time */
 VoltageProtection voltageProtection_(A1,A2, &statusLed_);/* voltage protection object for controlling battery voltage of two cells */
+GyroAccelSens gyroAccelSens_(0x68, &statusLed_);         /* gyroscope accelerometer object for measuring flight angle */
 uint8_t servoteachActive = 0;                            /* value is != 0 if servo position teach is active, otherwise 0 */
 
 #ifdef MEASURE_CYCLE_TIME
@@ -37,6 +39,7 @@ void setup()
   statusLed_.Setup();         /* initialize the status LED */
   userFlightTimer.Setup();    /* initialize flight timer */
   voltageProtection_.Setup(); /* initialize voltage protectin instance */
+  gyroAccelSens_.Setup();     /* initialize gyroscope accelerometer instance */
   Serial.println("control line application initialized");
 #ifdef MEASURE_CYCLE_TIME
   cycleTimePinState = LOW;
@@ -59,6 +62,7 @@ void loop()
   statusLed_.Control();     /* switch status LED */
   servoteachActive = throttleServo_.Control(buttonPressState); /* control the throttle servo */
   voltageProtection_.Control(buttonPressState);                /* check battery voltage */
+  gyroAccelSens_.Control(buttonPressState);                    /* measure flight angle and send to throttle control */
 #ifdef MEASURE_CYCLE_TIME
   cycleTimePinState = (cycleTimePinState == LOW)? HIGH : LOW;            /* toggle outputpin for measuring cycle time */
   digitalWrite(cycleTimePin,cycleTimePinState);
