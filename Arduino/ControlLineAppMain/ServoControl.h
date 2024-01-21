@@ -11,6 +11,7 @@
 #include "TimerMs.h"
 #include "LedControl.h"
 #include "EEPromStorage.h"
+#include "GyroAccelSens.h"
 
 //#define TRACE_SERVO_CONTROL   /* console print ADC value servo input */
 class ServoControl
@@ -25,18 +26,20 @@ class ServoControl
          Servo_Limit,  /* servo teach end position */
         Servo_Revers,  /* teach servo revers */
      Servo_LineShort,  /* reaction on control line short */
-     Servo_Calibrate   /* calibrate the servo potentiometer */
+     Servo_Calibrate,  /* calibrate the servo potentiometer */
+     Servo_EndFlight   /* signal with throttle end of flight reached */ 
     } servoTaskState;  /* states of servo task state machine */ 
 /*********************************************************************
- * Method: ServoControl(int controlPin, int servoPin, uint32_t moveDelay, LedControl * statusLed)
+ * Method: ServoControl(int controlPin, int servoPin, uint32_t moveDelay, LedControl * statusLed , GyroAccelSens* gyroAccelSens)
  *
  * @param Overview: constructor with parameters:
  * @param controlPin: the analog input pin for input encoder
  * @param servoPin:   the digital output pwm pin for servo control
  * @param moveDelay:  the move delay in ms for servo to reach position
  * @param statusLed:  reference to the status led object
+ * @param gyroAccelSens: reference to gyroscope accelerometer sensor object 
  ********************************************************************/
-    ServoControl(int controlPin, int servoPin, uint32_t moveDelay, LedControl * statusLed);
+    ServoControl(int controlPin, int servoPin, uint32_t moveDelay, LedControl * statusLed, GyroAccelSens* gyroAccelSens);
 
 /*********************************************************************
  * Method: void Setup(void)
@@ -57,6 +60,30 @@ class ServoControl
  ********************************************************************/
     uint8_t Control(uint8_t buttonPressState);
 
+ /*********************************************************************
+ * Method: void StoreGyroFlightPosHorizontal(void)
+ *
+ * Overview: store horizontal gyro flight pos in eeProm
+ *
+ ********************************************************************/
+    void StoreGyroFlightPosHorizontal (void);
+
+ /*********************************************************************
+ * Method: void StoreGyroFlightPosThrottle(void)
+ *
+ * Overview: store throttle gyro flight pos in eeProm
+ *
+ ********************************************************************/
+    void StoreGyroFlightThrottle (void);    
+
+ /*********************************************************************
+ * Method: void SignalThrottleEndFlight(void)
+ *
+ * Overview: signal with throttle end of flight reached
+ *
+ ********************************************************************/
+    void SignalThrottleEndFlight (void);
+
 	private:
     enum calibrateState
     {
@@ -74,16 +101,21 @@ class ServoControl
 	uint32_t servoDelay_;    /* wait delay for moving the servo */
 	TimerMs servoTimer_;     /* delay timer for moving the servo */	
   TimerMs servoTeachTimer_; /* timer for teach reaction on short circuit */
+  TimerMs servoEndFlightTimer_; /* timer for end flight reached */
   LedControl * statusLed_; /* reference to status LED object */ 
   uint8_t servoCtrlState_; /* state of servo control task */
   bool servoReverse_;      /* if true servo reverse, otherwise normal */
   bool servoLineShortThrottle_; /* if true servo throttle at control line short, otherwise no throttle */
   int servoLimit_;         /* maximum throttle position */
   int servoThrottle_;      /* servo throttle position */
+  int servoGyroHorizontal_;/* servo horizontal position for gyro flight */
+  int servoGyroThrottle_;  /* servo throttle position for gyro flight */
   int servoCalibMinVal_;   /* calibrate minimum value of potentiometer */
   int servoCalibMaxVal_;   /* calibrate maximum value of potentiometer */
   uint8_t calibrationState_; /* state of calibration subtask */
   EEPromStorage  eePromStorage_; /* instance of eeProm storage object */
+  GyroAccelSens * gyroAccelSens_; /* reference to gyroscope accelerometer sensor object */
+  bool gyroFlightActive_;         /* true if gyro flight is active, otherwise, false */
  
 /*********************************************************************
  * Method: void servoLineshortTeach(void)

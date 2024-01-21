@@ -58,7 +58,7 @@
         case buttonOn:     /* check press state */
           if(buttonPressTimer_.IsExpired(buttonPressTimeout_[buttonPressState_]))
           {
-            if(buttonPressState_ < _8sPressed)
+            if(buttonPressState_ < _9sPressed)
             {
               buttonPressState_ ++;
               statusLed_->FlashLed(buttonPressState_,100,200);

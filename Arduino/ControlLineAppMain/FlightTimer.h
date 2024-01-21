@@ -19,7 +19,7 @@ class FlightTimer
     {
         FlightTime_Idle = 0,     /* wait for start */
         FlightTime_Main = 1,     /* main task flight timer control */
-        FlightTime_Teach = 8,    /* teach flight timer */
+        FlightTime_Teach = 9,    /* teach flight timer */
         FlightTime_Store,        /* store timer teach on EE PROM */
     } flightTimerTaskState;      /* states of flight timer task state machine */ 
 /*********************************************************************
@@ -51,8 +51,9 @@ class FlightTimer
  * check elapsed flight time
  * @parameter: buttonPressState check button pressed for teach menu or timer start
  * @parameter: teachActive servo position teach active > 0 lock flight timer
+ * @return: true if flight timer elapsed, otherwise false
  ********************************************************************/
-   void Control(uint8_t buttonPressState, uint8_t teachActive);
+   bool Control(uint8_t buttonPressState, uint8_t teachActive);
 
 
   private:

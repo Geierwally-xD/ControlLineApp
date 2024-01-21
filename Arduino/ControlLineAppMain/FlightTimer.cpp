@@ -35,9 +35,11 @@
  * check elapsed flight time
  * @parameter: buttonPressState check button pressed for teach menu or timer start
  * @parameter: teachActive servo position teach active > 0 lock flight timer
+ * @return: true if flight timer elapsed, otherwise false
  ********************************************************************/
-  void FlightTimer::Control(uint8_t buttonPressState, uint8_t teachActive)
+  bool FlightTimer::Control(uint8_t buttonPressState, uint8_t teachActive)
   {
+    bool flightTimerElapsed = false;
     /* other teach active stop flight timer */
     switch(buttonPressState)
     { 
@@ -94,6 +96,7 @@
             }
             else
             {
+              flightTimerElapsed = true;
               if(flightEndLedTimer_.IsExpired(600))
               { /* flash LED end of flight time reached */
                 flightEndLedTimer_.Start();
@@ -115,6 +118,7 @@
             flightTimeCtrlState_ = FlightTime_Idle;
         break;
     }
+    return(flightTimerElapsed);
   }
 
   

@@ -168,6 +168,104 @@ class EEPromStorage
  ********************************************************************/
 	void writeVoltageProtCell_2(int voltProtCell_2);
 
+/*********************************************************************
+ * Method: void readGyroCalib(float* X, float* Y, float* Z)
+ *
+ * Overview: read gyroscope calibration values from from EEProm
+ * @parameter: references to X,Y,Z calibration values
+ ********************************************************************/
+  void readGyroCalib(float* X, float* Y, float* Z);
+
+/*********************************************************************
+ * Method: void writeGyroCalib(float X, float Y, float Z)
+ *
+ * Overview: write gyroscope calibration values to EEProm
+ * @parameter: X,Y,Z calibration values
+ ********************************************************************/
+  void writeGyroCalib(float X, float Y, float Z);
+
+/*********************************************************************
+ * Method: uint8_t readGyroNormalInvers(void)
+ *
+ * Overview: read gyro assembly from EEProm
+ * @return: 1 if normal assembly, 2 if invers assembly
+ ********************************************************************/
+	uint8_t readGyroNormalInvers(void);
+
+/*********************************************************************
+ * Method: void writeGyroNormalInvers(uint8_t gyroassembly)
+ *
+ * Overview: write gyroassembly to EEProm
+ * @parameter: gyroassembly 1 = normal, 2 = invers
+ ********************************************************************/
+	void writeGyroNormalInvers(uint8_t gyroassembly);
+
+  
+/*********************************************************************
+ * Method: int readGyroHorizontal(void)
+ *
+ * Overview: read Servo GyroHorizontal value from EEProm and does plausibility check
+ * @return: servo GyroHorizontal value
+ ********************************************************************/
+	int readGyroHorizontal(void);
+
+/*********************************************************************
+ * Method: void writeServoGyroHorizontal(int gyroFlightHorizontal)
+ *
+ * Overview: write servo gyroFlightHorizontal value to EEProm
+ * @parameter: gyroFlightHorizontal teached servo gyro horizontal flight value
+ ********************************************************************/
+  void writeServoGyroHorizontal(int gyroFlightHorizontal);
+
+ /*********************************************************************
+ * Method: int readGyroThrottle(void)
+ *
+ * Overview: read Servo GyroThrottle value from EEProm and does plausibility check
+ * @return: servo GyroThrottle value
+ ********************************************************************/
+	int readGyroThrottle(void);
+
+ /*********************************************************************
+ * Method: void writeServoGyroThrottle(int gyroFlightThrottle)
+ *
+ * Overview: write servo gyroFlightThrottle value to EEProm
+ * @parameter: gyroFlightThrottle teached servo gyro throttle flight value
+ ********************************************************************/
+  void writeServoGyroThrottle(int gyroFlightThrottle);   
+
+ /*********************************************************************
+ * Method: uint8_t readGyroExpo(void)
+ *
+ * Overview: read gyro expo value from EEProm and does plausibility check
+ * @return: gyro expo value
+ ********************************************************************/
+  uint8_t readGyroExpo(void);
+  
+ /*********************************************************************
+ * Method: void writeGyroExpo(uint8_t gyroExpo)
+ *
+ * Overview: write gyro expo value to EEProm
+ * @parameter: gyroExpo teached gyro expo value
+ ********************************************************************/
+  void writeGyroExpo(uint8_t gyroExpo);
+
+ /*********************************************************************
+ * Method: uint8_t readGyroFlightActive(void)
+ *
+ * Overview: read gyro flight active value from EEProm and does plausibility check
+ * @return: gyro fight active value
+ ********************************************************************/
+  uint8_t readGyroFlightActive(void);
+  
+ /*********************************************************************
+ * Method: void writeGyroFlightActive(uint8_t gyroFlightActive)
+ *
+ * Overview: write gyro flight active value to EEProm
+ * @parameter: gyroFlightActive gyro flight active value
+ ********************************************************************/
+  void writeGyroFlightActive(uint8_t gyroFlightActive);
+
+
   private:
   enum StorageAddress
   {
@@ -179,7 +277,15 @@ class EEPromStorage
     ServoReversAddress            = sizeof(uint32_t) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(int),                                                   /* bool */
     ServoLineShortThrottleAddress = sizeof(uint32_t) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(uint8_t),                                 /* bool */
     VoltageProtCell_1_Address     = sizeof(uint32_t) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(uint8_t) + sizeof(uint8_t),               /* int */
-    VoltageProtCell_2_Address     = sizeof(uint32_t) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(int)  /* int */
+    VoltageProtCell_2_Address     = sizeof(uint32_t) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(int), /* int */
+    GyroCalibAddressX             = sizeof(uint32_t) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(int) + sizeof(int),                              /*float*/
+    GyroCalibAddressY             = sizeof(uint32_t) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(int) + sizeof(int)+ sizeof(float),               /*float*/
+    GyroCalibAddressZ             = sizeof(uint32_t) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(int) + sizeof(int)+ sizeof(float)+ sizeof(float), /*float*/
+    GyroNormalInversAddress       = sizeof(uint32_t) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(int) + sizeof(int)+ sizeof(float)+ sizeof(float)+ sizeof(float), /*uint8_t*/
+    GyroHorizontalAddress         = sizeof(uint32_t) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(int) + sizeof(int)+ sizeof(float)+ sizeof(float)+ sizeof(float) + sizeof(uint8_t), /*int*/
+    GyroThrottleAddress           = sizeof(uint32_t) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(int) + sizeof(int)+ sizeof(float)+ sizeof(float)+ sizeof(float) + sizeof(uint8_t) + sizeof(int), /*int*/
+    GyroExpoAddress               = sizeof(uint32_t) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(int) + sizeof(int)+ sizeof(float)+ sizeof(float)+ sizeof(float) + sizeof(uint8_t) + sizeof(int) + sizeof(int), /*uint8_t*/
+    GyroFlightActiveAddress       = sizeof(uint32_t) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(int) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(int) + sizeof(int)+ sizeof(float)+ sizeof(float)+ sizeof(float) + sizeof(uint8_t) + sizeof(int) + sizeof(int) + sizeof(uint8_t) /*uint8_t*/
   }storageAddress;
 };
 

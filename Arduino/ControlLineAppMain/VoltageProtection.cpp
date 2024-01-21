@@ -70,7 +70,9 @@
         {
           if(voltLimitTimer_.IsExpired(UnderVoltageDelay))
           {
+  #ifndef LOCK_UNDER_VOLTAGE_OUTPUT          
             voltProtCtrlState_ = VoltProt_UnderVoltage; /* over 3000 ms under voltage => failure */
+  #endif          
             voltLimitTimer_.Start();
           }
         }

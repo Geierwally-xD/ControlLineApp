@@ -6,3 +6,8 @@ ID;Bezeichner;Footprint;Stückzahl;Bezeichnung;Anbieter und Referenz
 5;C1,C3,C2;C_0805_2012Metric_Pad1.18x1.45mm_HandSolder;3;100n;https://www.conrad.de/de/p/samsung-smd-keramik-vielschicht-kondensator-bauform-0805-x7r-100-nf-10-50-v-2752828.html
 6;R2,R1;R_1206_3216Metric_Pad1.30x1.75mm_HandSolder;2;1K;https://www.conrad.de/de/p/tru-components-1584217-tc-hp06w2f1001t5e203-dickschicht-widerstand-1-k-smd-1206-0-5-w-1-100-ppm-c-1-st-tape-cut-1584217.html
 7;R5;R_1206_3216Metric_Pad1.30x1.75mm_HandSolder;1;470;https://www.conrad.de/de/p/tru-components-1585631-tc-hp06w2f4700t5e203-dickschicht-widerstand-470-smd-1206-0-5-w-1-100-ppm-c-1-st-tape-cut-1585631.html
+;;;;;
+;;PinHeader 2*9 forJ2;;;https://www.conrad.de/de/search.html?search=Stiftleiste%202%20*%209
+;;ServoCable;;;https://www.conrad.de/de/p/econ-connect-kl3x014rtswgn25-litze-3-x-0-14-mm-rot-schwarz-gruen-25-m-2861407.html
+;;JST XH 1*3 header for 2s Lipo ;;;https://www.conrad.de/de/p/jst-stiftleiste-standard-xh-polzahl-gesamt-3-rastermass-2-50-mm-800184-1-st-741181.html
+;;;;;https://www.conrad.de/de/p/weller-t0051402999-loetzinn-bleifrei-sn0-6cu0-05ni-21-g-0-30-mm-0-50-mm-0-80-mm-2489829.html#productTechData

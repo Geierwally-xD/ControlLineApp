@@ -13,6 +13,8 @@
 #include "LedControl.h"
 
 //#define TRACE_VOLTAGE_PROTECTION   /* console print of voltage protection traces */
+#define LOCK_UNDER_VOLTAGE_OUTPUT    /* use this , if power supply comes over USB */
+
 #define UnderVoltageDelay 3000       /* 3000ms deley for under voltage failure */
 #define UnderVoltageLimit 3500       /* 3500mV cell voltage is under voltage limit */
 class VoltageProtection

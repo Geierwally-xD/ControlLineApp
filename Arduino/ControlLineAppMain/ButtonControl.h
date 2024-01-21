@@ -23,7 +23,8 @@ class ButtonControl
     _5sPressed,  /* reaction on control line short */
     _6sPressed,  /* calibrate potentiometer */
     _7sPressed,  /* calibrate voltage protection */
-    _8sPressed   /* teach flight timer */
+    _8sPressed,  /* teach gyro */
+    _9sPressed   /* teach flight timer */
   } buttonPressState; /* the last press-state of the button */ 
 
   enum ButtonControlState
@@ -65,7 +66,7 @@ class ButtonControl
     uint8_t GetPressState();
 
   private:
-    const uint32_t buttonPressTimeout_[9] = {50,1300,1600,1900,2200,2500,2800,3100,0}; /* 1000ms + led flash time */
+    const uint32_t buttonPressTimeout_[10] = {50,1300,1600,1900,2200,2500,2800,3100,3400,0}; /* 1000ms + led flash time */
     TimerMs buttonPressTimer_;  /* timer for button pressed */
     int buttonPin_;             /* digital input pin for the button */
     int buttonPinState_;        /* last read in state of the button */
