@@ -57,8 +57,8 @@ void setup()
  ********************************************************************/ 
 void loop() 
 {
-  bool prevFlightTimeElapsed = false;
-  bool flightTimeElapsed = false;
+  static bool prevFlightTimeElapsed = false;
+  static bool flightTimeElapsed = false;
   uint8_t buttonPressState = userButton_.GetPressState();
   userButton_.Control();                                      /* read the user button */
   statusLed_.Control();                                       /* switch status LED */
@@ -77,7 +77,7 @@ void loop()
     break;
   }
   flightTimeElapsed = userFlightTimer.Control(buttonPressState,gyroTeachActive|servoTeachActive);/* execute flight timer task */
-  if((flightTimeElapsed == true)&&(!prevFlightTimeElapsed))
+  if((flightTimeElapsed == true)&&(prevFlightTimeElapsed == false))
   {
     throttleServo_.SignalThrottleEndFlight(); /* signal throttle end of flight reached */
   }

@@ -35,7 +35,8 @@
  * check elapsed flight time
  * @parameter: buttonPressState check button pressed for teach menu or timer start
  * @parameter: teachActive servo position teach active > 0 lock flight timer
- * @return: true if flight timer elapsed, otherwise false
+ 
+ 
  ********************************************************************/
   bool FlightTimer::Control(uint8_t buttonPressState, uint8_t teachActive)
   {

@@ -130,7 +130,7 @@
     uint8_t GyroAccelSens::Control(uint8_t buttonPressState)
     {
       calculateRollNick();        /* calculate the roll and nick angles from sensor raw data */
-      if(buttonPressState = GyroAccel_Teach)
+      if(buttonPressState == GyroAccel_Teach)
       {
         gyroAccelCtrlState_ = buttonPressState;
         gyroAccelTeachState_ = gt_idle;
@@ -202,13 +202,11 @@
  *
  * Overview: call this nethod to get flight nick angle
  * @param: gyroAssembly reference to gyro assembly from servo control
- * @return calculated expo nick angle in degrees * 1000    
+ * @return calculated expo nick angle in degrees * 10    
  ********************************************************************/
     int GyroAccelSens::getFlightAngleNick(uint8_t* gyroAssembly) 
     {
-      static int nickOffset = 0;  
-      int tempOffset = 0;
-      int nickAngle = nick_ * 100.0;
+      int nickAngle = nick_ * 10.0;
       nickAngle = expo_Value(nickAngle, gyroAccelExpo_);
       *gyroAssembly = gyroAccelAssembly_;    /* write teached gyro assembly to servo control */
       return(nickAngle);
@@ -490,10 +488,14 @@
         case gt_flightActive:        /* set gyro flight active */
           gyroFlightActive_ = 1;
           eePromStorage_.writeGyroFlightActive(gyroFlightActive_);
+          gyroAccelTeachState_ = gt_idle;
+          expectedgyroAccelTeachState_ = gt_idle;
         break;        
         case gt_flightOff:           /* deactivate gyro flight */
           gyroFlightActive_ = 0;
           eePromStorage_.writeGyroFlightActive(gyroFlightActive_);
+          gyroAccelTeachState_ = gt_idle;
+          expectedgyroAccelTeachState_ = gt_idle;
         break;
         case gt_leave:               /* leave teach task */
         break;    

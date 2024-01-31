@@ -159,11 +159,11 @@
       static bool gyroFlightToggled = false; /* avoid multible toggle of flight control active */
       uint8_t gyroAssembly = 0;
       val_ = analogRead(controlPin_);      /* reads the value of the potentiometer (value between 0 and 1023) */
+
       if(false == servoReverse_)
         {val_ = map(val_, servoCalibMinVal_, servoCalibMaxVal_, 25, 180);}   /* scale it for use with the servo (value between 0 and 180) */ 
       else
         {val_ = map(val_, servoCalibMinVal_, servoCalibMaxVal_, 180, 25);}
-
       switch(servoCtrlState_)
       {
         case Servo_Main:      /* main task servo control */
@@ -176,102 +176,135 @@
           if(false == servoReverse_)
           { /* no servo reverse */
             if((val_ > 178)&&(servoLineShortThrottle_)&&(!gyroFlightActive_))
-              {val_ = servoLimit_;} /* short circuit on control lines and no line short throttle set*/
+            {
+              val_ = servoLimit_;
+            } /* short circuit on control lines and no line short throttle set*/
             else if(val_ < servoLimit_)
-              {val_ = servoLimit_;}
+            {
+              val_ = servoLimit_;
+            }
             else if(val_ < servoThrottle_)
-              {
-                val_ = servoThrottle_;
-                if(gyroAccelSens_->getGyroFlightActive())
-                { 
-                  if(!gyroFlightToggled)
-                  {
-                    gyroFlightActive_ = !gyroFlightActive_;
-                    gyroFlightToggled = true;
-                  }
-                }
-                else
+            {
+              val_ = servoThrottle_;
+              if(gyroAccelSens_->getGyroFlightActive())
+              { 
+                if(!gyroFlightToggled)
                 {
-                  gyroFlightActive_ = false;
+                  gyroFlightActive_ = !gyroFlightActive_;
+                  gyroFlightToggled = true;
+                  servoTeachTimer_.Start();
+                  if(gyroFlightActive_)
+                    { statusLed_->FlashLed(2,200,100);} /* gyro flight is enabled flash led two times */
+                  else
+                    { statusLed_->FlashLed(1,200,100);} /* gyro flight is dissabled flash led one time */ 
                 }
               }
+              else
+              {
+                gyroFlightActive_ = false;
+              }
+            }
             else if(val_ > servoGyroHorizontal_) /* flight angle control active and position > servo gyro horizontal */
             { 
+              gyroFlightToggled = false;
               if(gyroFlightActive_) 
               {            
                 int nickAngle = gyroAccelSens_->getFlightAngleNick(& gyroAssembly);
                 if(gyroAssembly == GyroAccelSens::gyroAccelAssemblyNormal)
                 {
                   if(nickAngle <0)
-                    {val_ = map(nickAngle,-9000, 0, servoGyroHorizontal_, 180);} 
+                  {
+                    val_ = map(nickAngle,-900, 0, servoGyroHorizontal_, 180);
+                  } 
                   else
-                    {val_ = map(nickAngle,0,9000, servoGyroThrottle_, servoGyroHorizontal_);} 
+                  {
+                    val_ = map(nickAngle,0,900, servoGyroThrottle_, servoGyroHorizontal_);
+                  } 
                 }
                 else
                 { /* assembly gyro invers */
                   if(nickAngle <0)
-                    {val_ = map(nickAngle,0,-9000, servoGyroHorizontal_, 180);} 
+                  {
+                    val_ = map(nickAngle,0,-900, servoGyroHorizontal_, 180);
+                  } 
                   else
-                    {val_ = map(nickAngle,9000,0, servoGyroThrottle_, servoGyroHorizontal_);}
+                  {
+                    val_ = map(nickAngle,900,0, servoGyroThrottle_, servoGyroHorizontal_);
+                  }
                 }
-              }
-              gyroFlightToggled = false;
-            } 
-            if(val_ < servoGyroThrottle_)
-              val_ = servoGyroThrottle_;
+                if(val_ < servoGyroThrottle_)
+                {
+                  val_ = servoGyroThrottle_;
+                }
+              } /* gyro flight active */
+            } /* val_ > servoGyroHorizontal_ */
           }
           else
           { /* servo reverse */
             if((val_ < 26)&&(servoLineShortThrottle_)&&(!gyroFlightActive_))
-              {val_ = servoLimit_;} /* short circuit on control lines and no line short throttle set*/           
+            {
+              val_ = servoLimit_;
+            } /* short circuit on control lines and no line short throttle set*/           
             else if(val_ > servoLimit_)
-              {val_ = servoLimit_;}
+            {
+              val_ = servoLimit_;
+            }
             else if(val_ > servoThrottle_)
-              {
-                val_ = servoThrottle_;
-                if(gyroAccelSens_->getGyroFlightActive())
-                { 
-                  if(!gyroFlightToggled)
-                  {
-                    gyroFlightActive_ = !gyroFlightActive_;
-                    gyroFlightToggled = true;
-                    servoTeachTimer_.Start();
-                    if(gyroFlightActive_)
-                    { statusLed_->FlashLed(2,200,100);} /* gyro flight is enabled flash led two times */
-                    else
-                    { statusLed_->FlashLed(1,200,100);} /* gyro flight is dissabled flash led one time */             
-                  }
-                }
-                else
+            {
+              val_ = servoThrottle_;
+              if(gyroAccelSens_->getGyroFlightActive())
+              { 
+                if(!gyroFlightToggled)
                 {
-                  gyroFlightActive_ = false;
+                  gyroFlightActive_ = !gyroFlightActive_;
+                  gyroFlightToggled = true;
+                  servoTeachTimer_.Start();
+                  if(gyroFlightActive_)
+                    { statusLed_->FlashLed(2,200,100);} /* gyro flight is enabled flash led two times */
+                  else
+                    { statusLed_->FlashLed(1,200,100);} /* gyro flight is dissabled flash led one time */             
                 }
               }
+              else
+              {
+                gyroFlightActive_ = false;
+              }
+            }
             else if(val_ < servoGyroHorizontal_) /* flight angle control active and position < servo gyro horizontal */
             {
+              gyroFlightToggled = false;
               if(gyroFlightActive_)
               {
                 int nickAngle = gyroAccelSens_->getFlightAngleNick(& gyroAssembly);
                 if(gyroAssembly == GyroAccelSens::gyroAccelAssemblyNormal)
                 {
                   if(nickAngle <0)
-                    {val_ = map(nickAngle,-9000,0, servoGyroHorizontal_, 25);}
+                  {
+                    val_ = map(nickAngle,-900,0, servoGyroHorizontal_, 25);
+                  }
                   else
-                    {val_ = map(nickAngle,0,9000, servoGyroThrottle_, servoGyroHorizontal_);}               
+                  {
+                    val_ = map(nickAngle,0,900, servoGyroThrottle_, servoGyroHorizontal_);
+                  }               
                 }
                 else
                 {
                   if(nickAngle <0)
-                    {val_ = map(nickAngle,0, -9000, servoGyroHorizontal_, 25);}
+                  {
+                    val_ = map(nickAngle,0, -900, servoGyroHorizontal_, 25);
+                  }
                   else
-                    {val_ = map(nickAngle, 9000,0, servoGyroThrottle_, servoGyroHorizontal_);}               
+                  {
+                    val_ = map(nickAngle, 900,0, servoGyroThrottle_, servoGyroHorizontal_);
+                  }               
                 }
-              }
-              gyroFlightToggled = false;
-            }  
-              if(val_ > servoGyroThrottle_)
-                val_ = servoGyroThrottle_;
-          }
+                if(val_ > servoGyroThrottle_)
+                {
+                  val_ = servoGyroThrottle_;
+                } 
+              }   /* gyroFlightActive_ */           
+            }  /* val_ < servoGyroHorizontal_ */                                                 
+          } /* servo reverse */
         break;
         case Servo_Store:     /* store servo teach and go back to Servo_Main */
           servoCtrlState_ = Servo_Main;
@@ -312,6 +345,7 @@
           servoCtrlState_ = servoCalibrate(buttonPressState);
         break;
         case Servo_EndFlight:
+          val_ = servoGyroThrottle_;
           if(servoEndFlightTimer_.IsExpired(1000)) /* 1000 ms throttle time */
           {servoCtrlState_ = Servo_Main;}
         break;

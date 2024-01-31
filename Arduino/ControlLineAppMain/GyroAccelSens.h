@@ -26,21 +26,21 @@ class GyroAccelSens
     {
         GyroAccel_Main,       /* main task gyro accel sensor */
         GyroAccel_Store,      /* store gyro accel sensor teach on eeprom */
-        GyroAccel_Teach = 9   /* teach gyro accel sensor */
+        GyroAccel_Teach = 8   /* teach gyro accel sensor */
     } gyroAccelTaskState;     /* states of gyro accel task state machine */ 
 
     enum GyroTeachState
     {
-        gt_idle,                /* wait for teach menu call */
-        gt_sensorNormal,        /* sensor position normal in model assembly on top */
-        gt_sensorInvers,        /* sensor position invers in model assembly on bottom */
-        gt_calib,               /* calibrate gyroscope sensors */
-        gt_flightPosHorizontal, /* teach flight value normal and invert horizontal flight */
-        gt_flightPosThrottle,   /* teach the gyro flight throttle position */
-        gt_Expo,                /* 0 - 100% expo curve to servo over gyro  */
-        gt_flightActive,        /* set gyro flight active */
-        gt_flightOff,           /* deactivate gyro flight */
-        gt_leave,               /* leave teach task */
+        gt_idle,                /* 0 wait for teach menu call */
+        gt_sensorNormal,        /* 1 sensor position normal in model assembly on top */
+        gt_sensorInvers,        /* 2 sensor position invers in model assembly on bottom */
+        gt_calib,               /* 3 calibrate gyroscope sensors */
+        gt_flightPosHorizontal, /* 4 teach flight value normal and invert horizontal flight */
+        gt_flightPosThrottle,   /* 5 teach the gyro flight throttle position */
+        gt_Expo,                /* 6 0 - 100% expo curve to servo over gyro  */
+        gt_flightActive,        /* 7 set gyro flight active */
+        gt_flightOff,           /* 8 deactivate gyro flight */
+        gt_leave,               /* 9 leave teach task */
         gt_storeFlightPosHorizontal, /* store horizontal teach position in ServoControl object */
         gt_storeFlightPosThrottle    /* store throttle teach position in ServoControl object */
     }gyroTeachState;
@@ -83,7 +83,7 @@ class GyroAccelSens
  *
  * Overview: call this nethod to get flight nick angle
  * @param: gyroAssembly reference to gyro assembly from servo control
- * @return calculated expo nick angle in degrees * 1000
+ * @return calculated expo nick angle in degrees * 10
  *      
  ********************************************************************/
     int getFlightAngleNick(uint8_t* gyroAssembly); 
