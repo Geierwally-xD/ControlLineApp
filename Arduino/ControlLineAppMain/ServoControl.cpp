@@ -330,7 +330,7 @@
           eePromStorage_.writeServoRevers(servoReverse_);
           servoCtrlState_ = Servo_Store;
         break;
-        case Servo_LineShort: /* rvtodo remove this reaction on control line short */
+        case Servo_LineShort: /*  */
           if(buttonPressState == Servo_Store)
           {
             servoCtrlState_ = buttonPressState;
