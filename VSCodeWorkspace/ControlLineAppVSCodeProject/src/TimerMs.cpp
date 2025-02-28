@@ -29,13 +29,13 @@
   }
 
 /*********************************************************************
- * Method: bool IsExpired(uint32_t timeout)
+ * Method: bool IsExpired(unsigned long timeout)
  *
  * Overview: checks timeout is expired and returns true if expired
  * otherwise false
  ********************************************************************/ 
   // check timer is expired, returns true if expired otherwise false
-  bool TimerMs::IsExpired(uint32_t timeout)
+  bool TimerMs::IsExpired(unsigned long timeout)
   {
     bool retVal = false;
     if(true == isActive)
@@ -50,11 +50,11 @@
   }
 
 /*********************************************************************
- * Method: uint32_t GetRelativeTickCount(void)
+ * Method: unsigned long GetRelativeTickCount(void)
  *
  * Overview: returns tickcount since timer start
  ********************************************************************/ 
-  uint32_t TimerMs::GetRelativeTickCount()
+  unsigned long TimerMs::GetRelativeTickCount()
   {
     return(millis() - startTime);
   }

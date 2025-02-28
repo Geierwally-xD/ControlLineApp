@@ -41,7 +41,7 @@
  ********************************************************************/
     void ButtonControl::Control() 
     {
-      uint32_t buttonPressTime = 0;
+      unsigned long buttonPressTime = 0;
       buttonPinState_ = digitalRead(buttonPin_);
       if(buttonPinState_ != buttonControlState_)
       {    

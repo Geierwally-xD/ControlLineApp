@@ -9,8 +9,8 @@ Geierwally's stroke engine throttle control application for controlled line mode
 - Hardware PCB design included, done with KiCad 8.0
 ![Display-picture](https://raw.githubusercontent.com/Geierwally-xD/ControlLineApp/master/img/PCB.jpg)
 - Full Software project included, done for Arduino Nano with VS Code and PlatformIO (optional Arduino IDE)
-- See short video clip of position control:
-https://www.youtube.com/shorts/paRSoQgenMU 
+- See short video clip of position control and landing gear with landing light:
+https://www.youtube.com/watch?v=91i4-DDLWDE
 
 Geierwally's Verbrennungsmotor- Drosselvergasersteuerung für Fesselflugmodelle
 ![Display-picture](https://raw.githubusercontent.com/Geierwally-xD/ControlLineApp/master/img/controller.jpg)
@@ -21,6 +21,6 @@ Geierwally's Verbrennungsmotor- Drosselvergasersteuerung für Fesselflugmodelle
 - Komplettes Hardware Platinenlayout enthalten, mit KiCad 8.0 entflochten
 ![Display-picture](https://raw.githubusercontent.com/Geierwally-xD/ControlLineApp/master/img/PCB.jpg)
 - Komplettes Software Projekt enthalten, für  Arduino Nano, entwickelt mit VS Code und PlatformIO (optional Arduino IDE)
-- Kurzer Videoclip zeigt Regelung über Fluglage:
-https://www.youtube.com/shorts/paRSoQgenMU
+- Kurzer Videoclip zeigt Regelung über Fluglage sowie Einziehfahrwerk und Landescheinwerfer:
+https://www.youtube.com/watch?v=91i4-DDLWDE
 

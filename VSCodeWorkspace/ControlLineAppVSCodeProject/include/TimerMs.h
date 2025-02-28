@@ -27,22 +27,22 @@ class TimerMs
 	void Start();
 
 /*********************************************************************
- * Method: bool IsExpired(uint32_t timeout)
+ * Method: bool IsExpired(unsigned long timeout)
  *
  * Overview: checks timeout is expired and returns true if expired
  * otherwise false
  ********************************************************************/ 
-	bool IsExpired(uint32_t timeout);
+	bool IsExpired(unsigned long timeout);
   
 /*********************************************************************
- * Method: uint32_t GetRelativeTickCount(void)
+ * Method: unsigned long GetRelativeTickCount(void)
  *
  * Overview: returns tickcount since timer start
  ********************************************************************/ 
-  uint32_t GetRelativeTickCount();
+  unsigned long GetRelativeTickCount();
 
   private:
-    uint32_t startTime; /* attribute contains start time of the software timer */
+    unsigned long startTime; /* attribute contains start time of the software timer */
 	  bool isActive;      /* attribute for timer state, true if active, otherwise false */
 };
 #endif

@@ -85,7 +85,7 @@
           }
           else
           {
-            uint32_t elapsedflightTime = flightTimer_.GetRelativeTickCount()/60000;
+            unsigned long elapsedflightTime = flightTimer_.GetRelativeTickCount()/60000;
             if(elapsedflightTime < flightTime_)
             {
               elapsedflightTime = flightTime_ - elapsedflightTime;

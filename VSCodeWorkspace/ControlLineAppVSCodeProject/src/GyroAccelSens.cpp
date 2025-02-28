@@ -600,7 +600,7 @@
   {
 	  TimerMs calibrationTimer;
 	  TimerMs gyroCycleTimer;
-    uint32_t gyroCycleTime = 0;
+    unsigned long gyroCycleTime = 0;
     float elapsedTime = 0;
     Wire.beginTransmission(device_Address_);
     Wire.write(GYRO_XOUT_H); /* Start with register 0x43 (GYRO_XOUT_H) */

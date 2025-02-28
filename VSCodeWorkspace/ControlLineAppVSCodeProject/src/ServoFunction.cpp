@@ -92,10 +92,12 @@
                 {
                     if(servoFunctionState2 == 1)
                     {
+                        servoTimer_.Start(); 
                         servoFunctionCtrlState_ = ServoFunction_EndposMove;
                     }
                     else
                     {
+                        servoTimer_.Start(); 
                         servoFunctionCtrlState_ = ServoFunction_LimitMove;
                     }
                     prevServoFunctionState_ = servoFunctionState2;

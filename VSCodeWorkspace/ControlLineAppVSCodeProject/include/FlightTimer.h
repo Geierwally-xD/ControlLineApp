@@ -61,7 +61,7 @@ class FlightTimer
     TimerMs flightTimer_;          /* countdown flight time */
     TimerMs flightEndLedTimer_;    /* timer for flash LED flight end */
     TimerMs teachTimer_;           /* timer for teach flight time*/
-    uint32_t flightTime_;          /* maximum flight time */
+    unsigned long flightTime_;          /* maximum flight time */
     uint8_t flightTimeCtrlState_; /* state of flight time control task */
     LedControl * statusLed_;      /* reference to status LED object */
     uint32_t remainingMinutes_;    /* remaining minutes flight time */
