@@ -36,7 +36,7 @@ int cycleTimePinState = LOW;                             /* pin state for measur
  ********************************************************************/ 
 void setup()
 {
-  Serial.begin(115200);         /* initialize the serial console print */
+  Serial.begin(115200);       /* initialize the serial console print */
   throttleServo_.Setup();     /* initialize the throttle servo */
   retractServo_.Setup();      /* initialize the retractable landing gear servo */
   userButton_.Setup();        /* initialize the user button */

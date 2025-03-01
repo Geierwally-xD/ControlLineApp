@@ -63,10 +63,10 @@
       functionControlThrottlePos_ = false;
       functionControlState_ = functionIdle;
       if(servoReverse_ == true)
-      {val_ = 180;} /* set servo to minimum throttle position */
+      {val_ = 25;} /* set servo to minimum throttle position */
       else
-      {val_ = 25;} /* set servo to maximum throttle position */ 
-      servoMove();
+      {val_ = 180;} /* set servo to maximum throttle position */ 
+      servo_Throttle_.write(val_);
     }
 
 /*********************************************************************
