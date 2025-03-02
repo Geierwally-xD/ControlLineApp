@@ -26,11 +26,11 @@
 /*********************************************************************
  * Method: void Setup(void)
  *
- * Overview: initialize the voltate protection attributes
+ * Overview: initialize the voltage protection attributes
  ********************************************************************/
   void VoltageProtection::VoltageProtection::Setup()
   {
-    /* start under voltage deley timer */
+    /* start under voltage delay timer */
       voltLimitTimer_.Start();
     /* read calibrated protection level from EEProm */  
       calibValCell_1_ = eePromStorage_.readVoltageProtCell_1();
